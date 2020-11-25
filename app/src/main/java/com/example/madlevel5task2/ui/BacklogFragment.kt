@@ -34,7 +34,6 @@ class BacklogFragment : Fragment() {
         observeAddGamesResult()
     }
 
-
     private fun observeAddGamesResult(){
         viewModel.games.observe(viewLifecycleOwner, Observer { games ->
             this@BacklogFragment.games.clear()

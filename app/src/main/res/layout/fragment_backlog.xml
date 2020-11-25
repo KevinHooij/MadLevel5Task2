@@ -7,6 +7,7 @@
     tools:context=".ui.BacklogFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGames"
         android:layout_width="408dp"
         android:layout_height="617dp"
         app:layout_constraintBottom_toBottomOf="parent"

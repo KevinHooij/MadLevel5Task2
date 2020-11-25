@@ -15,4 +15,5 @@
     <string name="day_txt">Day</string>
     <string name="month_txt">Month</string>
     <string name="year_txt">Year</string>
+    <string name="add_txt">Add Game</string>
 </resources>
