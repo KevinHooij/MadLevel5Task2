@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel5task2.R
 import kotlinx.android.synthetic.main.fragment_add_game.*
+import kotlinx.android.synthetic.main.fragment_backlog.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -33,6 +37,8 @@ class AddGameFragment : Fragment() {
         }
 
     }
+
+
 
     private fun onAddGame(){
         val gameTitle = etTitle.text.toString()

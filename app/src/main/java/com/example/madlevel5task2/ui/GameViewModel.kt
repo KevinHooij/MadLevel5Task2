@@ -47,5 +47,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application){
 
     }
 
+    fun deleteGame(game: Game){
+        mainScope.launch{
+            gameRepository.deleteGame(game)
+        }
+    }
+
 
 }

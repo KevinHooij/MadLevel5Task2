@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel5task2.R
 import com.example.madlevel5task2.model.Game
+import kotlinx.android.synthetic.main.fragment_backlog.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -31,8 +36,21 @@ class BacklogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
         observeAddGamesResult()
     }
+
+    private fun initViews(){
+        rvGames.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        rvGames.adapter = gameAdapter
+        rvGames.addItemDecoration(
+            DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL)
+        )
+        createItemTouchHelper().attachToRecyclerView(rvGames)
+    }
+
 
     private fun observeAddGamesResult(){
         viewModel.games.observe(viewLifecycleOwner, Observer { games ->
@@ -41,5 +59,31 @@ class BacklogFragment : Fragment() {
             gameAdapter.notifyDataSetChanged()
         })
 
+    }
+
+    private fun createItemTouchHelper(): ItemTouchHelper {
+
+        // Callback which is used to create the ItemTouch helper. Only enables left swipe.
+        // Use ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) to also enable right swipe.
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            // Enables or Disables the ability to move items up and down.
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            // Callback triggered when a user swiped an item.
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val gameToDelete = games[position]
+                viewModel.deleteGame(gameToDelete)
+
+            }
+        }
+        return ItemTouchHelper(callback)
     }
 }
