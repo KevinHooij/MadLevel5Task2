@@ -8,8 +8,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application){
 
     private val gameRepository = GameRepository(application.applicationContext)
 
-    val game = gameRepository.getAllGames()
+    val games = gameRepository.getAllGames()
 
 
-    
+
 }
